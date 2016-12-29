@@ -1,6 +1,17 @@
-# githubexplorerwithvuejs
+# Progressive Web App Showcase with VueJS
 
 > GitHub Explorer with VueJS
+
+![](./docimages/GitHubExplorer.png)
+
+## Frameworks
+* VueJS
+* Vuex
+* Vue Resource
+* Webpack with VueLoader
+* ServiceWorker
+* WebManifest
+
 
 ## Build Setup
 
