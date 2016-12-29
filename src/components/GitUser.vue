@@ -1,7 +1,7 @@
 <template>
     <div>
         <div>
-            <img width="32px" height="32px" :src="user.avatar" />
+            <img width="64px" height="64px" :src="user.avatar" />
             <div>Name: <span> {{ user.name }}</span></div>
             <div>Location: <span> {{ user.location }}</span></div>
             <a :href="user.blog">{{ user.blog }}</a>

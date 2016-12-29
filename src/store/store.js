@@ -11,7 +11,7 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
     state: {
         value: 0,
-        title: 'GitHub Explorer with VueJS',
+        title: 'Progressive Web App - GitHub Explorer with VueJS',
         users:  []
     },
     getters,

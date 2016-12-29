@@ -1,7 +1,7 @@
 <template>
   <div class="container" id="app">
     <div id="main" class="content">
-    <span> {{ getTitle }}</span>
+    <span class="title"> {{ getTitle }}</span>
       <div id="offline-content" style="display: none">
         <span>You are offline</span>
       </div>
@@ -16,20 +16,39 @@
 import { mapGetters, mapActions } from 'vuex'
 import GitUser from './components/GitUser.vue'
 
+
 export default {
   name: 'app',
   computed: mapGetters([
     'getTitle',
     'getUsers'
   ]),
-  methods: mapActions([
-    'addUser'
-  ]),
+  methods: {
+      ...mapActions({
+          addUser: 'addUser'
+      }),
+      loadUser(username) {
+           this.$http.get('https://api.github.com/users/' + username).then(response => {
+            return response.json();
+                        })
+                        .then(data => {
+                           this.$store.dispatch('addUser',
+                              { name: data.name,
+                                location: data.location,
+                                blog: data.blog,
+                                bio: data.bio,
+                                followers: data.followers,
+                                avatar: data.avatar_url
+                               });
+
+                        });
+      }
+    },
   created () {
-    this.$store.dispatch('addUser', { name: 'Juergen', location: 'Basel', blog: 'example', bio: 'Test33', followers: 4, avatar: 'https://avatars3.githubusercontent.com/u/1202528?v=3&s=400'});
-    this.$store.dispatch('addUser', { name: 'Peter', location: 'Basel', blog: 'example', bio: 'Test33', followers: 6, avatar: 'https://avatars3.githubusercontent.com/u/1202528?v=3&s=400'});
-    this.$store.dispatch('addUser', { name: 'Hans', location: 'Basel', blog: 'example', bio: 'Test33', followers: 4, avatar: 'https://avatars3.githubusercontent.com/u/1202528?v=3&s=400'});
-    this.$store.dispatch('addUser', { name: 'Gerd', location: 'Basel', blog: 'example', bio: 'Test33', followers: 4, avatar: 'https://avatars3.githubusercontent.com/u/1202528?v=3&s=400'});
+  var accountNames = ['kentbeck', 'royfielding', 'juergen1976', 'johnpapa', 'jakearchibald', 'robdodson', 'torvalds', 'addyosmani'];
+  accountNames.forEach((name) => {
+                                    this.loadUser(name);
+                                 });
   },
   components: {
     GitUser
@@ -38,6 +57,11 @@ export default {
 </script>
 
 <style>
+
+.title {
+  font-weight: bold;
+}
+
 .content {
   max-width: 72em;
   margin-left: auto;
