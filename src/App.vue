@@ -45,10 +45,33 @@ export default {
       }
     },
   created () {
-  var accountNames = ['kentbeck', 'royfielding', 'juergen1976', 'johnpapa', 'jakearchibald', 'robdodson', 'torvalds', 'addyosmani'];
-  accountNames.forEach((name) => {
-                                    this.loadUser(name);
-                                 });
+    var accountNames = ['kentbeck', 'royfielding', 'juergen1976', 'johnpapa', 'jakearchibald', 'robdodson', 'torvalds', 'addyosmani'];
+    accountNames.forEach((name) => {
+                                      this.loadUser(name);
+                                   });
+  },
+  mounted() {
+    window.handleOfflineOnlineStatus = function() {
+    var online  = window.navigator.onLine;
+    if (online) {
+      var element = document.querySelector('#offline-content');
+      element.style.display = 'none';
+    } else {
+      var element = document.querySelector('#offline-content');
+      element.style.display = 'block';
+      element.querySelector('span').innerHTML = 'You are offline';
+    }
+   }
+
+    window.addEventListener('online', function(e) {
+      window.handleOfflineOnlineStatus();
+    }, false);
+
+    window.addEventListener('offline', function(e) {
+      window.handleOfflineOnlineStatus();
+    }, false);
+
+    window.handleOfflineOnlineStatus();
   },
   components: {
     GitUser

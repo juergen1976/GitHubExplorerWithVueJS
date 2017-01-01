@@ -12,17 +12,6 @@ new Vue({
   render: h => h(App)
 });
 
-window.addEventListener('online', function(e) {
-  var element = document.querySelector('#offline-content');
-  element.style.display = 'none';
-}, false);
-
-window.addEventListener('offline', function(e) {
-  var element = document.querySelector('#offline-content');
-  element.style.display = 'block';
-  element.querySelector('span').innerHTML = 'You are offline';
-}, false);
-
 // Register Service Worker
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('./sw.js', { scope: '/' }).then((reg) => {
