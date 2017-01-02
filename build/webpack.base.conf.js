@@ -77,6 +77,8 @@ module.exports = {
   plugins: [
     new CopyWebpackPlugin([
       // {output}/file.txt
-      { from: './sw.js' }
+      { from: './sw.js' },
+      { from: './favicon.ico' },
+      { from: './manifest.json' }
       ])]
 }
